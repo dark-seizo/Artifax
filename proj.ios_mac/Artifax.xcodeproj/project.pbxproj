@@ -74,16 +74,12 @@
 		33D444A61A4CAB8000B3A680 /* mainsheet.png in Resources */ = {isa = PBXBuildFile; fileRef = 33D4446B1A4CAB8000B3A680 /* mainsheet.png */; };
 		33D444A71A4CAB8000B3A680 /* physics_data.json in Resources */ = {isa = PBXBuildFile; fileRef = 33D4446C1A4CAB8000B3A680 /* physics_data.json */; };
 		33D444A81A4CAB8000B3A680 /* physics_data.json in Resources */ = {isa = PBXBuildFile; fileRef = 33D4446C1A4CAB8000B3A680 /* physics_data.json */; };
+		33D444B11A4CBC0F00B3A680 /* standard_enemy_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33D444AF1A4CBC0F00B3A680 /* standard_enemy_system.cpp */; };
+		33D444B21A4CBC0F00B3A680 /* standard_enemy_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33D444AF1A4CBC0F00B3A680 /* standard_enemy_system.cpp */; };
 		33DBFD391A43BC2200611631 /* bullet_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33DBFD151A43BC2200611631 /* bullet_system.cpp */; };
 		33DBFD3A1A43BC2200611631 /* bullet_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33DBFD151A43BC2200611631 /* bullet_system.cpp */; };
 		33DBFD3B1A43BC2200611631 /* collision_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33DBFD171A43BC2200611631 /* collision_system.cpp */; };
 		33DBFD3C1A43BC2200611631 /* collision_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33DBFD171A43BC2200611631 /* collision_system.cpp */; };
-		33DBFD3D1A43BC2200611631 /* enemy_group_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33DBFD1B1A43BC2200611631 /* enemy_group_system.cpp */; };
-		33DBFD3E1A43BC2300611631 /* enemy_group_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33DBFD1B1A43BC2200611631 /* enemy_group_system.cpp */; };
-		33DBFD3F1A43BC2300611631 /* enemy_health_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33DBFD1D1A43BC2200611631 /* enemy_health_system.cpp */; };
-		33DBFD401A43BC2300611631 /* enemy_health_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33DBFD1D1A43BC2200611631 /* enemy_health_system.cpp */; };
-		33DBFD411A43BC2300611631 /* enemy_movementAI_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33DBFD1F1A43BC2200611631 /* enemy_movementAI_system.cpp */; };
-		33DBFD421A43BC2300611631 /* enemy_movementAI_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33DBFD1F1A43BC2200611631 /* enemy_movementAI_system.cpp */; };
 		33DBFD431A43BC2300611631 /* energybar_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33DBFD211A43BC2200611631 /* energybar_system.cpp */; };
 		33DBFD441A43BC2300611631 /* energybar_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33DBFD211A43BC2200611631 /* energybar_system.cpp */; };
 		33DBFD451A43BC2300611631 /* game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33DBFD231A43BC2200611631 /* game.cpp */; };
@@ -223,18 +219,14 @@
 		33D4446A1A4CAB8000B3A680 /* mainsheet.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = mainsheet.plist; sourceTree = "<group>"; };
 		33D4446B1A4CAB8000B3A680 /* mainsheet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mainsheet.png; sourceTree = "<group>"; };
 		33D4446C1A4CAB8000B3A680 /* physics_data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = physics_data.json; sourceTree = "<group>"; };
+		33D444AF1A4CBC0F00B3A680 /* standard_enemy_system.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = standard_enemy_system.cpp; sourceTree = "<group>"; };
+		33D444B01A4CBC0F00B3A680 /* standard_enemy_system.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = standard_enemy_system.h; sourceTree = "<group>"; };
 		33DBFD151A43BC2200611631 /* bullet_system.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bullet_system.cpp; sourceTree = "<group>"; };
 		33DBFD161A43BC2200611631 /* bullet_system.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bullet_system.h; sourceTree = "<group>"; };
 		33DBFD171A43BC2200611631 /* collision_system.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = collision_system.cpp; sourceTree = "<group>"; };
 		33DBFD181A43BC2200611631 /* collision_system.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = collision_system.h; sourceTree = "<group>"; };
 		33DBFD191A43BC2200611631 /* components.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = components.h; sourceTree = "<group>"; };
 		33DBFD1A1A43BC2200611631 /* constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = constants.h; sourceTree = "<group>"; };
-		33DBFD1B1A43BC2200611631 /* enemy_group_system.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = enemy_group_system.cpp; sourceTree = "<group>"; };
-		33DBFD1C1A43BC2200611631 /* enemy_group_system.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = enemy_group_system.h; sourceTree = "<group>"; };
-		33DBFD1D1A43BC2200611631 /* enemy_health_system.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = enemy_health_system.cpp; sourceTree = "<group>"; };
-		33DBFD1E1A43BC2200611631 /* enemy_health_system.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = enemy_health_system.h; sourceTree = "<group>"; };
-		33DBFD1F1A43BC2200611631 /* enemy_movementAI_system.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = enemy_movementAI_system.cpp; sourceTree = "<group>"; };
-		33DBFD201A43BC2200611631 /* enemy_movementAI_system.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = enemy_movementAI_system.h; sourceTree = "<group>"; };
 		33DBFD211A43BC2200611631 /* energybar_system.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = energybar_system.cpp; sourceTree = "<group>"; };
 		33DBFD221A43BC2200611631 /* energybar_system.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = energybar_system.h; sourceTree = "<group>"; };
 		33DBFD231A43BC2200611631 /* game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = game.cpp; sourceTree = "<group>"; };
@@ -515,12 +507,6 @@
 				33DBFD181A43BC2200611631 /* collision_system.h */,
 				33DBFD191A43BC2200611631 /* components.h */,
 				33DBFD1A1A43BC2200611631 /* constants.h */,
-				33DBFD1B1A43BC2200611631 /* enemy_group_system.cpp */,
-				33DBFD1C1A43BC2200611631 /* enemy_group_system.h */,
-				33DBFD1D1A43BC2200611631 /* enemy_health_system.cpp */,
-				33DBFD1E1A43BC2200611631 /* enemy_health_system.h */,
-				33DBFD1F1A43BC2200611631 /* enemy_movementAI_system.cpp */,
-				33DBFD201A43BC2200611631 /* enemy_movementAI_system.h */,
 				33DBFD211A43BC2200611631 /* energybar_system.cpp */,
 				33DBFD221A43BC2200611631 /* energybar_system.h */,
 				33DBFD231A43BC2200611631 /* game.cpp */,
@@ -547,6 +533,8 @@
 				33DBFD381A43BC2200611631 /* weapon_system.h */,
 				46880B8419C43A87006E1F66 /* AppDelegate.cpp */,
 				46880B8519C43A87006E1F66 /* AppDelegate.h */,
+				33D444AF1A4CBC0F00B3A680 /* standard_enemy_system.cpp */,
+				33D444B01A4CBC0F00B3A680 /* standard_enemy_system.h */,
 			);
 			name = Classes;
 			path = ../Classes;
@@ -799,6 +787,7 @@
 			files = (
 				33DBFD531A43BC2300611631 /* render_system.cpp in Sources */,
 				33DBFD491A43BC2300611631 /* level.cpp in Sources */,
+				33D444B11A4CBC0F00B3A680 /* standard_enemy_system.cpp in Sources */,
 				33DBFD591A43BC2300611631 /* weapon_system.cpp in Sources */,
 				33DBFD4B1A43BC2300611631 /* main_menu.cpp in Sources */,
 				33DBFD391A43BC2200611631 /* bullet_system.cpp in Sources */,
@@ -808,14 +797,11 @@
 				33DBFD551A43BC2300611631 /* shield_system.cpp in Sources */,
 				33DBFD431A43BC2300611631 /* energybar_system.cpp in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
-				33DBFD3D1A43BC2200611631 /* enemy_group_system.cpp in Sources */,
-				33DBFD411A43BC2300611631 /* enemy_movementAI_system.cpp in Sources */,
 				33DBFD4F1A43BC2300611631 /* MyBodyParser.cpp in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				33DBFD511A43BC2300611631 /* parallax_system.cpp in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
 				33DBFD571A43BC2300611631 /* upgrade_system.cpp in Sources */,
-				33DBFD3F1A43BC2300611631 /* enemy_health_system.cpp in Sources */,
 				33DBFD471A43BC2300611631 /* input_system.cpp in Sources */,
 				33DBFD451A43BC2300611631 /* game.cpp in Sources */,
 			);
@@ -828,11 +814,10 @@
 				33DBFD4C1A43BC2300611631 /* main_menu.cpp in Sources */,
 				33DBFD561A43BC2300611631 /* shield_system.cpp in Sources */,
 				46880B8919C43A87006E1F66 /* AppDelegate.cpp in Sources */,
-				33DBFD3E1A43BC2300611631 /* enemy_group_system.cpp in Sources */,
 				33DBFD4E1A43BC2300611631 /* movement_system.cpp in Sources */,
 				33DBFD4A1A43BC2300611631 /* level.cpp in Sources */,
-				33DBFD421A43BC2300611631 /* enemy_movementAI_system.cpp in Sources */,
 				33DBFD501A43BC2300611631 /* MyBodyParser.cpp in Sources */,
+				33D444B21A4CBC0F00B3A680 /* standard_enemy_system.cpp in Sources */,
 				33DBFD541A43BC2300611631 /* render_system.cpp in Sources */,
 				33DBFD461A43BC2300611631 /* game.cpp in Sources */,
 				503AE10517EB98FF00D1A890 /* main.cpp in Sources */,
@@ -842,7 +827,6 @@
 				33DBFD3C1A43BC2200611631 /* collision_system.cpp in Sources */,
 				33DBFD521A43BC2300611631 /* parallax_system.cpp in Sources */,
 				33DBFD5A1A43BC2300611631 /* weapon_system.cpp in Sources */,
-				33DBFD401A43BC2300611631 /* enemy_health_system.cpp in Sources */,
 				33DBFD581A43BC2300611631 /* upgrade_system.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

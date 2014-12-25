@@ -13,11 +13,9 @@ Level::Level( const std::string &filename )
 	systems.add<MovementSystem>();
 	systems.add<WeaponSystem>(entities);
 	systems.add<EnergyBarSystem>();
-	systems.add<EnemyMovementAISystem>();
-	systems.add<EnemyGroupSystem>();
 	systems.add<CollisionSystem>();
     systems.add<ShieldSystem>();
-    systems.add<EnemyHealthSystem>(entities);
+    systems.add<StandardEnemySystem>(entities);
     systems.add<ParallaxScrollingSystem>();
     systems.add<UpgradeSystem>(entities);
 
@@ -82,17 +80,15 @@ void Level::update(float dt)
 		}
 	}
 
-    systems.update<EnemyGroupSystem>(dt);
+    systems.update<StandardEnemySystem>(dt);
 	systems.update<RenderSystem>(dt);
 	systems.update<InputSystem>(dt);
 	systems.update <CollisionSystem>(dt);
     systems.update<ShieldSystem>(dt);
-    systems.update<EnemyHealthSystem>(dt);
 	systems.update<WeaponSystem>(dt);
 	systems.update<EnergyBarSystem>(dt);
 	systems.update<BulletSystem>(dt);
 	systems.update<MovementSystem>(dt);
-	systems.update<EnemyMovementAISystem>(dt);
     systems.update<ParallaxScrollingSystem>(dt);
     systems.update<UpgradeSystem>(dt);
 }

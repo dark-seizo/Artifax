@@ -4,7 +4,7 @@
 #include "cocos2d.h"
 #include "entityx/entityx.h"
 #include "shield_system.h"
-#include "enemy_health_system.h"
+#include "standard_enemy_system.h"
 #include "upgrade_system.h"
 #include "components.h"
 #include "MyBodyParser.h"
