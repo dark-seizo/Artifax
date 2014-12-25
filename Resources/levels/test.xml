@@ -1,0 +1,27 @@
+<?xml version='1.0'?>
+<level name="test-level" bgm="level1.mp3" bg="bg_2.png" fg="planet19.png">
+    <wave delta="1.0">
+        <group type="smallenemy" speed="200" upgrade="laserupgrade" number="3" path="sin1" padding="10"/>
+        <group type="smallenemy" speed="200" upgrade="missileupgrade" number="3" path="cos1" padding="10"/>
+        <group path="sin2" delta="2.0" speed="40" upgrade="laserupgrade" padding="300" rotatable="false">
+            <enemy type="smallenemy"/>
+            <enemy type="mediumenemy"/>
+            <enemy type="smallenemy"/>
+            <enemy type="largeenemy"/>
+            <enemy type="smallenemy"/>
+        </group>
+    </wave>
+    <wave delta="5.2">
+        <group type="mediumenemy" padding="75" speed="250" number="2" path="side1" upgrade="missileupgrade"/>
+        <group path="straight_mid1" padding="25" speed="200" rotatable="false">
+            <enemy type="mediumenemy" upgrade="laserupgrade"/>
+            <enemy type="mediumenemy" upgrade="missileupgrade"/>
+            <enemy type="largeenemy" upgrade="shieldupgrade"/>
+        </group>
+    </wave>
+    <!-- there should be a set wait time between the last wave and the boss -->
+    <bosswave bgm="bosstrack.wav">
+        <boss name="boss1"/>
+        <boss name="boss3"/>
+    </bosswave>
+</level>

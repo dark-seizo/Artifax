@@ -1,0 +1,21 @@
+
+
+-add collision detection logic now that attack power is propogated properly.
+-implement enemy health system.
+-abstract the window size from AppDelegate and make it a constant.
+-add the ability to change the parallax scroll speed in level file.
+-allow the explicit setting of position for foreground image in level file.
+-add explosion animation to dead enemies and player death sequence.
+-create a level choosing scene between main menu and the game.
+-balance game...
+-add support for polar coordinate function for enemy paths
+-implement better error handling
+
+polish:
+-add particle effects to shield
+-add animations to the shield bar and energy bar.
+-add more enemy paths
+-begin creating levels
+-add health bars ontop of normal enemies
+
+------------------------------------------------------
