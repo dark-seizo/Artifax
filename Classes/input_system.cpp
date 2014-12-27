@@ -73,22 +73,22 @@ void InputSystem::keyPressed(EventKeyboard::KeyCode keyCode, cocos2d::Event* eve
 
 			if (keyCode == keyMap.at("up"))
 			{
-				velocity.y = PLAYER_VELOCITY;
+				velocity.y = 1;
 				ic->keyPressedMap["up"] = true;
 			}
 			else if (keyCode == keyMap.at("down"))
 			{
-				velocity.y = -PLAYER_VELOCITY;
+				velocity.y = -1;
 				ic->keyPressedMap["down"] = true;
 			}
 			else if (keyCode == keyMap.at("left"))
 			{
-				velocity.x = -PLAYER_VELOCITY;
+				velocity.x = -1;
 				ic->keyPressedMap["left"] = true;
 			}
 			else if (keyCode == keyMap.at("right"))
 			{
-				velocity.x = PLAYER_VELOCITY;
+				velocity.x = 1;
 				ic->keyPressedMap["right"] = true;
 			}
 			else if (keyCode == keyMap.at("fire"))
@@ -98,7 +98,8 @@ void InputSystem::keyPressed(EventKeyboard::KeyCode keyCode, cocos2d::Event* eve
 			}
             
             velocity.normalize();
-			entity.component<VelocityComponent>()->velocity = velocity * PLAYER_VELOCITY;
+            velocity *= PLAYER_VELOCITY;
+            entity.component<VelocityComponent>()->velocity = velocity;
 		}
 		else CCLOG("[FATAL] Player entity being iterated over in InputSystem with no InputComponent (or VelocityComponent..).");
 	}
@@ -119,7 +120,7 @@ void InputSystem::keyReleased(EventKeyboard::KeyCode keyCode, cocos2d::Event* ev
 			{
 				if (ic->keyPressedMap["down"])
 				{
-					velocity.y = -PLAYER_VELOCITY;
+					velocity.y = -1;
 				}
 				else
 				{
@@ -131,7 +132,7 @@ void InputSystem::keyReleased(EventKeyboard::KeyCode keyCode, cocos2d::Event* ev
 			{
 				if (ic->keyPressedMap["up"])
 				{
-					velocity.y = PLAYER_VELOCITY;
+					velocity.y = 1;
 				}
 				else
 				{
@@ -143,7 +144,7 @@ void InputSystem::keyReleased(EventKeyboard::KeyCode keyCode, cocos2d::Event* ev
 			{
 				if (ic->keyPressedMap["left"])
 				{
-					velocity.x = -PLAYER_VELOCITY;
+					velocity.x = -1;
 				}
 				else
 				{
@@ -155,7 +156,7 @@ void InputSystem::keyReleased(EventKeyboard::KeyCode keyCode, cocos2d::Event* ev
 			{
 				if (ic->keyPressedMap["right"])
 				{
-					velocity.x = PLAYER_VELOCITY;
+					velocity.x = 1;
 				}
 				else
 				{
@@ -169,7 +170,7 @@ void InputSystem::keyReleased(EventKeyboard::KeyCode keyCode, cocos2d::Event* ev
 			}
             
             velocity.normalize();
-			entity.component<VelocityComponent>()->velocity = velocity * PLAYER_VELOCITY;
+            entity.component<VelocityComponent>()->velocity = velocity * PLAYER_VELOCITY;
 
 			//for testing
 			if (keyCode == EventKeyboard::KeyCode::KEY_U) entity.component<WeaponComponent>()->laser.increaseLevel();

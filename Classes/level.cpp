@@ -25,7 +25,7 @@ Level::Level( const std::string &filename )
 	systems.configure();
     
 	auto player = this->createPlayer();
-
+    
 	this->createPlayerEnergyBar(player);
     this->createPlayerShieldBar(player);
 
@@ -33,9 +33,8 @@ Level::Level( const std::string &filename )
     this->loadEnemyDefinitions();
     
     //preload and play bgm music
-    std::string bgmPath = "";
-    bgmPath.append(levelData->mainBgm);
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadBackgroundMusic(bgmPath.c_str());
+    std::string bgmPath("bgm/" + levelData->mainBgm);
+    CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic(bgmPath.c_str());
     //begin the music at some other point after the level has been initiated.
     CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic(bgmPath.c_str());
 }
@@ -85,7 +84,7 @@ void Level::update(float dt)
     systems.update<EnemyGroupSystem>(dt);
 	systems.update<RenderSystem>(dt);
 	systems.update<InputSystem>(dt);
-	systems.update <CollisionSystem>(dt);
+	systems.update<CollisionSystem>(dt);
     systems.update<ShieldSystem>(dt);
     systems.update<EnemyHealthSystem>(dt);
 	systems.update<WeaponSystem>(dt);
@@ -149,7 +148,7 @@ entityx::Entity Level::createEnemyFromEnemyData(const EnemyData &data, std::stri
 
 void Level::loadEnemyDefinitions()
 {
-    auto content = FileUtils::getInstance()->getDataFromFile("enemies.json");
+    auto content = FileUtils::getInstance()->getDataFromFile("data/enemies.json");
     std::string contentString((const char*)content.getBytes(), content.getSize());
     
     enemyDefinitions.Parse<rapidjson::kParseDefaultFlags>(contentString.c_str());
@@ -157,7 +156,7 @@ void Level::loadEnemyDefinitions()
     if(enemyDefinitions.HasParseError())
     {
         //throw exception, enemy definitions was unreadable
-        CCLOG("error reading enemy definitions file");
+        CCLOG("error reading enemy definitions file, %s", enemyDefinitions.GetParseError());
     }
 }
 

@@ -21,16 +21,16 @@ bool Game::init()
 
 	if (!Layer::init()) return false;
 
-	auto mainBatchNode = SpriteBatchNode::create("mainsheet.png");
+	auto mainBatchNode = SpriteBatchNode::create("data/mainsheet.png");
 	mainBatchNode->setTag(MAIN_SPRITEBATCHNODE);
 	this->addChild(mainBatchNode);
 
 	//load the main sprite sheet	
 	auto cache = SpriteFrameCache::getInstance();
-	cache->addSpriteFramesWithFile("mainsheet.plist");
+	cache->addSpriteFramesWithFile("data/mainsheet.plist");
     
     auto animationCache = AnimationCache::getInstance();
-    animationCache->addAnimationsWithFile("animations.plist");
+    animationCache->addAnimationsWithFile("data/animations.plist");
 
 	this->scheduleOnce(schedule_selector(Game::setupLevel), 0);
 
@@ -39,7 +39,7 @@ bool Game::init()
 
 void Game::setupLevel(float)
 {
-	currentLevel = new Level("test.xml");
+	currentLevel = new Level("levels/test.xml");
 	this->scheduleUpdate();
 }
 

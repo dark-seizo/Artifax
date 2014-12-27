@@ -27,7 +27,7 @@ public:
 	void update(EntityManager &es, EventManager &events, double dt) override;
 
 private:
-
+    
 	EventManager			*eventManager;
 };
 

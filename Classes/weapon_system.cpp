@@ -91,7 +91,7 @@ void WeaponSystem::receive(const PlayerWeaponFiredEvent &weaponFiredEvent)
 			}
 
 			//need to preload this
-			CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("flaunch.wav");
+			CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("sfx/flaunch.wav");
 
 			weaponComponent->laser.delay += PLAYER_LASER_DELAY;
 			//CCLOG("laser gun delay: %f", laserGun.delay);

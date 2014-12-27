@@ -111,10 +111,10 @@ struct PathComponent : entityx::Component < PathComponent >
 	EnemyPath				path;
 };
 
-//tag component, used to denote the player's entity.
+//holds the players ship's max speed
 struct PlayerComponent : entityx::Component < PlayerComponent > 
 {
-	PlayerComponent() {};
+    PlayerComponent() {}
 };
 
 struct ShieldComponent : entityx::Component < ShieldComponent > 
@@ -204,7 +204,12 @@ struct LaserWeapon
 	LaserWeapon(LaserWeaponLevel new_level, float new_power) : level(new_level), power(new_power), delay(0.0f) {}
 	LaserWeapon() : level(LASER_INACTIVE), power(1.f), delay(0.0f) {}
 
-	inline void increaseLevel() { if (level != LASER_MAX_LEVEL) level = LaserWeaponLevel(level + 1); }
+	inline void increaseLevel()
+    {
+        if (level != LASER_MAX_LEVEL)
+            level = LaserWeaponLevel(level + 1);
+    }
+    
 	inline const bool isReady() { return delay <= 0; }
 
     float		delay,
@@ -226,7 +231,12 @@ struct MissileWeapon
 	MissileWeapon(MissileWeaponLevel new_level, float new_power) : level(new_level), power(new_power), delay(0.0f) {}
 	MissileWeapon() : level(MissileWeapon::MISSILE_INACTIVE), power(1.f), delay(0.0f) {}
 
-	inline void increaseLevel() { if (level != MISSILE_MAX_LEVEL) level = MissileWeaponLevel(level + 1); }
+	inline void increaseLevel()
+    {
+        if (level != MISSILE_MAX_LEVEL)
+            level = MissileWeaponLevel(level + 1);
+    }
+    
 	inline bool isReady() const { return delay <= 0; }
 
     float		delay,
@@ -333,11 +343,11 @@ struct ParallaxComponent : entityx::Component < ParallaxComponent >
 {
     ParallaxComponent(const std::string &backgroundFileName, const std::string &foregroundFileName = "")
     {
-        background_1 = Sprite::create(backgroundFileName);
-        background_2 = Sprite::create(backgroundFileName);
+        background_1 = Sprite::create("backgrounds/" + backgroundFileName);
+        background_2 = Sprite::create("backgrounds/" + backgroundFileName);
         if(foregroundFileName != "")
         {
-            foreground_1 = Sprite::create(foregroundFileName);
+            foreground_1 = Sprite::create("backgrounds/" + foregroundFileName);
         }
     }
     

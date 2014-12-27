@@ -2,6 +2,7 @@
 #define _LEVEL_H__
 
 #include <list>
+#include <map>
 #include "entityx/entityx.h"
 #include "SimpleAudioEngine.h"
 #include "tinyxml2.h"

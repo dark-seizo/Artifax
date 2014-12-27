@@ -9,7 +9,7 @@ void CollisionSystem::configure(EventManager &events)
     world->setGravity(Vec2::ZERO);
     //only draw debug if we are building on debug and if a flag is set.
     world->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
-    MyBodyParser::getInstance()->parseJsonFile("physics_data.json");
+    MyBodyParser::getInstance()->parseJsonFile("data/physics_data.json");
     
     auto contactListener = EventListenerPhysicsContact::create();
     contactListener->onContactBegin = CC_CALLBACK_1(CollisionSystem::onContactBegin, this);
