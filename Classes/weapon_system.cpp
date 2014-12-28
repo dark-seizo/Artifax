@@ -93,7 +93,7 @@ void WeaponSystem::receive(const PlayerWeaponFiredEvent &weaponFiredEvent)
 			//need to preload this
 			CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("sfx/flaunch.wav");
 
-			weaponComponent->laser.delay += PLAYER_LASER_DELAY;
+			weaponComponent->laser.delay += weaponComponent->laser.maxDelay;
 			//CCLOG("laser gun delay: %f", laserGun.delay);
 		}
 
@@ -105,13 +105,13 @@ void WeaponSystem::receive(const PlayerWeaponFiredEvent &weaponFiredEvent)
                     
 			default: break;
 			}
-			weaponComponent->missile.delay += PLAYER_MISSILE_DELAY;
+			weaponComponent->missile.delay += weaponComponent->missile.maxDelay;
 		}
 
 		if (weaponComponent->turretDelay <= 0)
 		{
 			//implement turret weapon mechanics
-			weaponComponent->turretDelay += PLAYER_TURRET_DELAY;
+			//weaponComponent->turretDelay += PLAYER_TURRET_DELAY;
 		}
 	}
 	else CCLOG("[!] Entity without weapon component attempting to fire a player's weapon.");

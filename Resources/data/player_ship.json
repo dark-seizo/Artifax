@@ -1,18 +1,37 @@
 {
-    "player_velocity"                   : 375.0,
-    "player_laser_delay"                : 0.18,
-    "player_missile_delay"              : 1.15,
-    "player_turret_delay"               : 1.1,
-    "player_laser_energy_cost"          : 0.3,
-    "player_missile_energy_cost"        : 3.5,
-    "player_turret_fire_energy_cost"    : 2.7,
-    "player_shield_max_strength"        : 1000,
-    "player_shield_recharge_rate"       : 150.0,
-    "player_shield_recharge_delay"      : 1.1,
-    "player_shield_depleted_delay"      : 1.5,
-    "player_energybar_max_strength"     : 100.0,
-    "player_energybar_recharge_rate"    : 30.0,
-    "player_energybar_ recharge_delay"  : 1.1,
-    "player_laser_power"                : 35.0,
-    "player_missile_power"              : 150.0
+    "ship" :
+    {
+        "velocity" : 300.0
+    },
+    "weapon_delay" :
+    {
+        "laser" : 0.18,
+        "missile" : 1.15,
+        "turret" : 1.1
+    },
+    "energy_cost" :
+    {
+        "laser" : 2.3,
+        "missile" : 5.5,
+        "turret" : 0.2
+    },
+    "shield" :
+    { 
+        "max_strength" : 1000.0,
+        "recharge_rate" : 150.0,
+        "recharge_delay" : 1.1,
+        "depleted_delay" : 1.5
+    },
+    "energybar" :
+    {
+        "max_strength" : 100.0,
+        "recharge_rate" : 30.0,
+        "recharge_delay" : 1.1
+    },
+    "weapon_power" :
+    {
+        "laser" : 35.0,
+        "missile" : 150,
+        "turret" : 25.0
+    }
 }

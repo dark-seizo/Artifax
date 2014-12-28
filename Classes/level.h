@@ -111,6 +111,9 @@ private:
     //loads the enemy definitions from enemies.json
     void loadEnemyDefinitions();
     
+    //retrieves player's ships constant's, storing them in a map.
+    std::map<const std::string, float> loadPlayerShipValues(void);
+    
 	//holds the data parsed from the level file
 	LevelData					*levelData;
     

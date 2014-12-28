@@ -7,31 +7,7 @@
 
 const static unsigned int GAME_LAYER						= 9129;
 const static unsigned int MAIN_SPRITEBATCHNODE				= 103410;
-
-const static float PLAYER_VELOCITY							= 375.f;
-
-const static float PLAYER_LASER_DELAY						= 0.18f;
-const static float PLAYER_MISSILE_DELAY						= 1.5f;
-const static float PLAYER_TURRET_DELAY						= 1.1f;
-
-const static float PLAYER_LASER_ENERGY_COST					= 0.3f;
-const static float PLAYER_MISSILE_ENERGY_COST				= 3.5f;
-const static float PLAYER_TURRET_FIRE_ENERGY_COST			= 2.7f;
-
-const static float PLAYER_SHIELD_MAX_STRENGTH               = 1000.f;
-const static float PLAYER_SHIELD_RECHARGE_RATE              = 150.f;
-const static float PLAYER_SHIELD_RECHARGE_DELAY             = 1.1f; //seconds
-const static float PLAYER_SHIELD_DEPLETED_DELAY             = 1.5f; //seconds
-
-const static float PlAYER_ENERGYBAR_MAX_STRENGTH            = 100.f;
-const static float PLAYER_ENERGYBAR_RECHARGE_RATE           = 30.f;
-const static float PLAYER_ENERGYBAR_RECHARGE_DELAY          = 1.1f; //seconds
-
-const static float PLAYER_LASER_POWER                       = 35.f;
-const static float PLAYER_MISSILE_POWER                     = 150.f;
-
-
-const static unsigned int PLAYER_TAG						= 191;
+const static unsigned int PLAYER_TAG                        =191;
 
 //namespace is used because the enum names are used elsewhere in the global namespace
 namespace Z_ORDER

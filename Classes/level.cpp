@@ -280,6 +280,42 @@ Vec2 Level::setInitialPosition(entityx::Entity entity)
 	else CCLOG("[FATAL] Entity without sprite and path component and enemy component passed into Level::setInitialPosition");
 }
 
+std::map<const std::string, float> Level::loadPlayerShipValues()
+{
+    rapidjson::Document constants;
+    auto content = FileUtils::getInstance()->getDataFromFile("data/player_ship.json");
+    std::string contentString((const char*)content.getBytes(), content.getSize());
+    
+    constants.Parse<rapidjson::kParseDefaultFlags>(contentString.c_str());
+    
+    if (constants.HasParseError())
+    {
+        //throw exception, constants.json was unreadable
+        CCLOG("error reading constants.json: %s", constants.GetParseError());
+    }
+    
+    std::map<const std::string, float> shipStats;
+    shipStats["player_ship_velocity"] = constants["ship"]["velocity"].GetDouble();
+    shipStats["player_laser_delay"] = constants["weapon_delay"]["laser"].GetDouble();
+    shipStats["player_missile_delay"] = constants["weapon_delay"]["missile"].GetDouble();
+    shipStats["player_turret_delay"] = constants["weapon_delay"]["laser"].GetDouble();
+    shipStats["player_laser_cost"] = constants["energy_cost"]["laser"].GetDouble();
+    shipStats["player_missile_cost"] = constants["energy_cost"]["missile"].GetDouble();
+    shipStats["player_turret_cost"] = constants["energy_cost"]["turret"].GetDouble();
+    shipStats["player_shield_max_strength"] = constants["shield"]["max_strength"].GetDouble();
+    shipStats["player_shield_recharge_rate"] = constants["shield"]["recharge_rate"].GetDouble();
+    shipStats["player_shield_recharge_delay"] = constants["shield"]["recharge_delay"].GetDouble();
+    shipStats["player_shield_depleted_delay"] = constants["shield"]["depleted_delay"].GetDouble();
+    shipStats["player_energybar_max_strength"] = constants["energybar"]["max_strength"].GetDouble();
+    shipStats["player_energybar_recharge_rate"] = constants["energybar"]["recharge_rate"].GetDouble();
+    shipStats["player_energybar_recharge_delay"] = constants["energybar"]["recharge_delay"].GetDouble();
+    shipStats["player_laser_power"] = constants["weapon_power"]["laser"].GetDouble();
+    shipStats["player_missile_power"] = constants["weapon_power"]["missile"].GetDouble();
+    shipStats["player_turret_power"] = constants["weapon_power"]["turret"].GetDouble();
+    
+    return shipStats;
+}
+
 entityx::Entity Level::createPlayer()
 {
 	auto director = Director::getInstance();
@@ -299,8 +335,9 @@ entityx::Entity Level::createPlayer()
 
 	spriteComponent->sprite->setPosition(Vec2(player_x, player_y));
 
-	entity.assign<PlayerComponent>();
 
+    std::map<const std::string, float> shipStats = this->loadPlayerShipValues();
+    entity.assign<PlayerComponent>(shipStats["player_ship_velocity"]);
 	InputMap keyMap =
 	{
 		{ "up", EventKeyboard::KeyCode::KEY_W },
@@ -309,12 +346,12 @@ entityx::Entity Level::createPlayer()
 		{ "right", EventKeyboard::KeyCode::KEY_D },
 		{ "fire", EventKeyboard::KeyCode::KEY_SPACE }
 	};
-
+    
 	entity.assign<InputComponent>(keyMap);
-	entity.assign<ShieldComponent>(PLAYER_SHIELD_MAX_STRENGTH, PLAYER_SHIELD_RECHARGE_RATE, PLAYER_SHIELD_RECHARGE_DELAY, PLAYER_SHIELD_DEPLETED_DELAY);
-	entity.assign<EnergyBarComponent>(PlAYER_ENERGYBAR_MAX_STRENGTH, PLAYER_ENERGYBAR_RECHARGE_RATE, PLAYER_ENERGYBAR_RECHARGE_DELAY);
+	entity.assign<ShieldComponent>(shipStats.at("player_shield_max_strength"), shipStats["player_shield_recharge_rate"], shipStats["player_shield_recharge_delay"], shipStats["player_shield_depleted_delay"]);
+	entity.assign<EnergyBarComponent>(shipStats["player_energybar_max_strength"], shipStats["player_energybar_recharge_rate"], shipStats["player_energybar_recharge_delay"]);
 	entity.assign<CollisionComponent>(CollisionType::PLAYER);
-	entity.assign<WeaponComponent>();
+	entity.assign<WeaponComponent>(shipStats["player_laser_power"], shipStats["player_laser_delay"], shipStats["player_laser_cost"], shipStats["player_missile_power"], shipStats["player_missile_delay"], shipStats["player_missile_cost"]);
 	entity.assign<VelocityComponent>();
     entity.assign<BoundaryComponent>(cocos2d::Rect(0,0,visibleSize.width,visibleSize.height));
 	

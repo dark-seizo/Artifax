@@ -65,30 +65,31 @@ void InputSystem::keyPressed(EventKeyboard::KeyCode keyCode, cocos2d::Event* eve
 {
 	for (entityx::Entity entity : players)
 	{
-		if (entity.has_component<InputComponent>() && entity.has_component<VelocityComponent>())
+		if (entity.has_component<InputComponent>() && entity.has_component<VelocityComponent>() && entity.has_component<PlayerComponent>())
 		{
 			auto ic = entity.component<InputComponent>();
 			auto keyMap = ic->inputMap;
+            float speed = entity.component<PlayerComponent>()->speed;
 			Vec2 velocity = entity.component<VelocityComponent>()->velocity;
 
 			if (keyCode == keyMap.at("up"))
 			{
-				velocity.y = 1;
+				velocity.y = speed;
 				ic->keyPressedMap["up"] = true;
 			}
 			else if (keyCode == keyMap.at("down"))
 			{
-				velocity.y = -1;
+				velocity.y = -speed;
 				ic->keyPressedMap["down"] = true;
 			}
 			else if (keyCode == keyMap.at("left"))
 			{
-				velocity.x = -1;
+				velocity.x = -speed;
 				ic->keyPressedMap["left"] = true;
 			}
 			else if (keyCode == keyMap.at("right"))
 			{
-				velocity.x = 1;
+				velocity.x = speed;
 				ic->keyPressedMap["right"] = true;
 			}
 			else if (keyCode == keyMap.at("fire"))
@@ -96,10 +97,8 @@ void InputSystem::keyPressed(EventKeyboard::KeyCode keyCode, cocos2d::Event* eve
 				eventManager->emit<AttemptWeaponFireEvent>(entity);
 				ic->keyPressedMap["fire"] = true;
 			}
-            
             velocity.normalize();
-            velocity *= PLAYER_VELOCITY;
-            entity.component<VelocityComponent>()->velocity = velocity;
+            entity.component<VelocityComponent>()->velocity = velocity * speed;
 		}
 		else CCLOG("[FATAL] Player entity being iterated over in InputSystem with no InputComponent (or VelocityComponent..).");
 	}
@@ -109,18 +108,19 @@ void InputSystem::keyReleased(EventKeyboard::KeyCode keyCode, cocos2d::Event* ev
 {
 	for (entityx::Entity entity : players)
 	{
-		if (entity.has_component<InputComponent>() && entity.has_component<VelocityComponent>())
+		if (entity.has_component<InputComponent>() && entity.has_component<VelocityComponent>() && entity.has_component<PlayerComponent>())
 		{
 			auto ic = entity.component<InputComponent>();
 			//need to pass this by reference instead of by value
 			auto keyMap = ic->inputMap;
+            float speed = entity.component<PlayerComponent>()->speed;
 			Vec2 velocity = entity.component<VelocityComponent>()->velocity;
 
 			if (keyCode == keyMap.at("up"))
 			{
 				if (ic->keyPressedMap["down"])
 				{
-					velocity.y = -1;
+					velocity.y = -speed;
 				}
 				else
 				{
@@ -132,7 +132,7 @@ void InputSystem::keyReleased(EventKeyboard::KeyCode keyCode, cocos2d::Event* ev
 			{
 				if (ic->keyPressedMap["up"])
 				{
-					velocity.y = 1;
+					velocity.y = speed;
 				}
 				else
 				{
@@ -144,7 +144,7 @@ void InputSystem::keyReleased(EventKeyboard::KeyCode keyCode, cocos2d::Event* ev
 			{
 				if (ic->keyPressedMap["left"])
 				{
-					velocity.x = -1;
+					velocity.x = -speed;
 				}
 				else
 				{
@@ -156,7 +156,7 @@ void InputSystem::keyReleased(EventKeyboard::KeyCode keyCode, cocos2d::Event* ev
 			{
 				if (ic->keyPressedMap["right"])
 				{
-					velocity.x = 1;
+					velocity.x = speed;
 				}
 				else
 				{
@@ -170,7 +170,7 @@ void InputSystem::keyReleased(EventKeyboard::KeyCode keyCode, cocos2d::Event* ev
 			}
             
             velocity.normalize();
-            entity.component<VelocityComponent>()->velocity = velocity * PLAYER_VELOCITY;
+            entity.component<VelocityComponent>()->velocity = velocity * speed;
 
 			//for testing
 			if (keyCode == EventKeyboard::KeyCode::KEY_U) entity.component<WeaponComponent>()->laser.increaseLevel();

@@ -19,8 +19,10 @@ void EnergyBarSystem::receive(const AttemptWeaponFireEvent &attemptWeaponFireEve
 
 		float totalCost = 0.f; 
 
-		if (weaponComponent->laser.isReady() && weaponComponent->laser.level != LaserWeapon::LASER_INACTIVE) totalCost += PLAYER_LASER_ENERGY_COST;
-		if (weaponComponent->missile.isReady() && weaponComponent->missile.level != MissileWeapon::MISSILE_INACTIVE)  totalCost += PLAYER_MISSILE_ENERGY_COST;
+		if (weaponComponent->laser.isReady() && weaponComponent->laser.level != LaserWeapon::LASER_INACTIVE)
+            totalCost += weaponComponent->laser.cost;
+		if (weaponComponent->missile.isReady() && weaponComponent->missile.level != MissileWeapon::MISSILE_INACTIVE)
+            totalCost += weaponComponent->missile.cost;
 		//if (weaponComponent->turretDelay <= 0) totalCost += PLAYER_TURRET_FIRE_ENERGY_COST;
 
 		if (totalCost > 0.f && !energyBarComponent->depleted)

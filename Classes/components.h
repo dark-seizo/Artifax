@@ -114,7 +114,10 @@ struct PathComponent : entityx::Component < PathComponent >
 //holds the players ship's max speed
 struct PlayerComponent : entityx::Component < PlayerComponent > 
 {
-    PlayerComponent() {}
+    explicit PlayerComponent(float shipSpeed) : speed(shipSpeed) {}
+    PlayerComponent() : speed(0.0f) {}
+    
+    float speed;
 };
 
 struct ShieldComponent : entityx::Component < ShieldComponent > 
@@ -201,7 +204,7 @@ struct LaserWeapon
 	} level;
 
 
-	LaserWeapon(LaserWeaponLevel new_level, float new_power) : level(new_level), power(new_power), delay(0.0f) {}
+	LaserWeapon(LaserWeaponLevel new_level, float new_power, float new_maxDelay, float new_cost) : level(new_level), power(new_power), delay(0.0f), maxDelay(new_maxDelay), cost(new_cost) {}
 	LaserWeapon() : level(LASER_INACTIVE), power(1.f), delay(0.0f) {}
 
 	inline void increaseLevel()
@@ -213,7 +216,9 @@ struct LaserWeapon
 	inline const bool isReady() { return delay <= 0; }
 
     float		delay,
-                power;
+                power,
+                maxDelay,
+                cost;
 };
 
 struct MissileWeapon
@@ -228,7 +233,7 @@ struct MissileWeapon
 		MISSILE_MAX_LEVEL		= MISSILE_LEVEL_THREE
 	} level;
 
-	MissileWeapon(MissileWeaponLevel new_level, float new_power) : level(new_level), power(new_power), delay(0.0f) {}
+	MissileWeapon(MissileWeaponLevel new_level, float new_power, float new_maxDelay, float new_cost) : level(new_level), power(new_power), delay(0.0f), maxDelay(new_maxDelay), cost(new_cost) {}
 	MissileWeapon() : level(MissileWeapon::MISSILE_INACTIVE), power(1.f), delay(0.0f) {}
 
 	inline void increaseLevel()
@@ -240,7 +245,9 @@ struct MissileWeapon
 	inline bool isReady() const { return delay <= 0; }
 
     float		delay,
-                power;
+                power,
+                maxDelay,
+                cost;
 };
 
 struct TurretWeapon
@@ -260,7 +267,7 @@ struct TurretWeapon
 
 struct WeaponComponent : entityx::Component < WeaponComponent >
 {
-	WeaponComponent() : laser(LaserWeapon::LASER_LEVEL_ONE, PLAYER_LASER_POWER), missile(MissileWeapon::MISSILE_INACTIVE, PLAYER_MISSILE_POWER), turret(0), turretDelay(0)  {}
+	WeaponComponent(float laserPower, float laserDelay, float laserCost, float missilePower, float missileDelay, float missileCost) : laser(LaserWeapon::LASER_LEVEL_ONE, laserPower, laserDelay, laserCost), missile(MissileWeapon::MISSILE_INACTIVE, missilePower, missileDelay, missileCost), turret(0), turretDelay(0)  {}
 
     unsigned short			turret;
     float					turretDelay;
