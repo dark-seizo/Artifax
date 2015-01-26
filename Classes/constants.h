@@ -1,4 +1,4 @@
-#ifndef _CONSTANTS___	
+#ifndef _CONSTANTS___
 #define _CONSTANTS___
 
 #include <map>
@@ -14,12 +14,12 @@ namespace Z_ORDER
 {
 	enum Z_ORDER
 	{
-		UPGRADE                         = 1,
-		ENEMY_PROJECTILE                = 2,
-		PLAYER_PROJECTILE               = 3,
-		PLAYER                          = 4,
-		ENEMY                           = 5,
-		UI_ELEMENT                      = 10,
+		UPGRADE                         = 2,
+		ENEMY_PROJECTILE                = 3,
+		PLAYER_PROJECTILE               = 4,
+		PLAYER                          = 5,
+		ENEMY                           = 6,
+		UI_ELEMENT                      = 7,
         PARALLAX_NODE_BACKGROUND        = -10,
         PARALLAX_NODE_FOREGROUND        = -9
 	};
@@ -27,6 +27,12 @@ namespace Z_ORDER
 
 inline float degreeToRadian(float degree) { return degree * (M_PI / 180); }
 inline float radianToDegree(float radian) { return radian * (180 / M_PI); }
+
+inline std::string getFilePath(const std::string &file)
+{
+    return cocos2d::FileUtils::sharedFileUtils()->fullPathForFilename(file);
+}
+
 
 inline std::string removeExtension(const std::string &filename)
 {

@@ -25,7 +25,7 @@ private:
     entityx::Entity         entity;
 public:
     CollidibleSprite() {}
-    
+
     static CollidibleSprite* createWithSpriteFrameName(const std::string &new_filename)
     {
         CollidibleSprite *sprite = new CollidibleSprite();
@@ -37,7 +37,7 @@ public:
         CC_SAFE_DELETE(sprite);
         return NULL;
     }
-    
+
     inline void setEntity(const entityx::Entity new_entity) { entity = new_entity; }
     inline entityx::Entity getEntity() const { return entity; }
 };
@@ -55,8 +55,8 @@ struct SpriteComponent : entityx::Component < SpriteComponent >
 		sprite = CollidibleSprite::createWithSpriteFrameName(new_filename);
         sprite->setName(removeExtension(new_filename));
 	}
-    
-	SpriteComponent() 
+
+	SpriteComponent()
 	{
 		//need some form of error handling here
 		sprite = (CollidibleSprite*)CollidibleSprite::create();
@@ -112,22 +112,22 @@ struct PathComponent : entityx::Component < PathComponent >
 };
 
 //holds the players ship's max speed
-struct PlayerComponent : entityx::Component < PlayerComponent > 
+struct PlayerComponent : entityx::Component < PlayerComponent >
 {
     explicit PlayerComponent(float shipSpeed) : speed(shipSpeed) {}
     PlayerComponent() : speed(0.0f) {}
-    
+
     float speed;
 };
 
-struct ShieldComponent : entityx::Component < ShieldComponent > 
+struct ShieldComponent : entityx::Component < ShieldComponent >
 {
 	ShieldComponent(float new_maxStrength, float new_rechargeRate, float new_rechargeDelay, float new_depletedDelay)
 		: strength(new_maxStrength), maxStrength(new_maxStrength), rechargeRate(new_rechargeRate), rechargeDelay(new_rechargeDelay),
 		depletedDelay(new_depletedDelay), rechargeTimeLeft(0.0f), active(true) {};
 
 	ShieldComponent() : strength(0.f), maxStrength(1.f), rechargeRate(1.f), rechargeDelay(1.f), rechargeTimeLeft(0.f), depletedDelay(1.f), active(false) {};
-	
+
 	float					strength,
 							maxStrength,
 							rechargeRate,
@@ -167,7 +167,7 @@ typedef std::map<const std::string, cocos2d::EventKeyboard::KeyCode> InputMap;
 typedef std::pair<const std::string, cocos2d::EventKeyboard::KeyCode> InputPair;
 typedef std::map<const std::string, bool> InputKeyPressedMap;
 
-struct InputComponent : entityx::Component < InputComponent > 
+struct InputComponent : entityx::Component < InputComponent >
 {
 	InputComponent(InputMap keyMap) : InputComponent()
 	{
@@ -177,7 +177,7 @@ struct InputComponent : entityx::Component < InputComponent >
 		}
 	}
 
-	InputComponent() 
+	InputComponent()
 	{
 		keyPressedMap.insert({ "up", false });
 		keyPressedMap.insert({ "down", false });
@@ -212,7 +212,7 @@ struct LaserWeapon
         if (level != LASER_MAX_LEVEL)
             level = LaserWeaponLevel(level + 1);
     }
-    
+
 	inline const bool isReady() { return delay <= 0; }
 
     float		delay,
@@ -241,7 +241,7 @@ struct MissileWeapon
         if (level != MISSILE_MAX_LEVEL)
             level = MissileWeaponLevel(level + 1);
     }
-    
+
 	inline bool isReady() const { return delay <= 0; }
 
     float		delay,
@@ -279,7 +279,7 @@ struct BoundaryComponent : entityx::Component < BoundaryComponent >
 {
     BoundaryComponent(cocos2d::Rect new_rect) : boundary(new_rect) {}
     BoundaryComponent() : boundary(cocos2d::Rect(0,0,1,1)) {}
-    
+
     cocos2d::Rect           boundary;
 };
 
@@ -357,7 +357,7 @@ struct ParallaxComponent : entityx::Component < ParallaxComponent >
             foreground_1 = Sprite::create("backgrounds/" + foregroundFileName);
         }
     }
-    
+
     Sprite                      *background_1,
                                 *background_2,
                                 *foreground_1;
@@ -369,7 +369,7 @@ enum class EnemyType
 	MEDIUM_ENEMY,
 	LARGE_ENEMY
 };
-    
+
     const static std::map<std::string, EnemyType> enemyNameMap =
     {
         { "smallenemy", EnemyType::SMALL_ENEMY },
@@ -461,7 +461,7 @@ struct EnemyHealthComponent : public entityx::Component < EnemyHealthComponent >
 
 	float						health,
 								maxHealth;
-    
+
     //used for bosses or any enemy that wants a way to display their health
     entityx::Entity             displayEntity;
 };
@@ -477,7 +477,7 @@ enum class EnemyWeaponType : int
 struct EnemyWeaponComponent : public entityx::Component < EnemyWeaponComponent >
 {
     EnemyWeaponComponent(float new_attackPower, float new_frequency, float new_frequencyMin, float new_frequencyMax, float new_speed, EnemyWeaponType new_type) : attackPower(new_attackPower), frequencyOfAttack(new_frequency), frequencyDeltaMin(new_frequencyMin), frequencyDeltaMax(new_frequencyMax), speed(new_speed), attackDelayRemaining(new_frequency), type(new_type) {}
-    
+
     float                       attackPower,
                                 frequencyOfAttack,
                                 frequencyDeltaMin,

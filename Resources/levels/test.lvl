@@ -1,4 +1,4 @@
-<?xml version='1.0'?>
+<?xml version='1.0' encoding="UTF-8"?>
 <level name="test-level" bgm="level1.mp3" bg="bg_2.png" fg="planet19.png">
     <wave delta="1.0">
         <group type="smallenemy" speed="200" upgrade="laserupgrade" number="3" path="sin1" padding="10"/>

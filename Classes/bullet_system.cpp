@@ -8,7 +8,7 @@ BulletSystem::BulletSystem(EntityManager &es)
 const entityx::Entity BulletSystem::SelectTarget(EntityManager &entityManager, CollisionType type, Vec2 startingPos)
 {
     std::pair<entityx::Entity, float> target;
-    target.second = MAXFLOAT;
+    target.second = 10000000.f; //some large number for now, needs to be some multiple of screen size
     
     CollisionComponent::Handle collisionComponent;
     SpriteComponent::Handle spriteComponent;

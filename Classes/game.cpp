@@ -25,10 +25,10 @@ bool Game::init()
 	mainBatchNode->setTag(MAIN_SPRITEBATCHNODE);
 	this->addChild(mainBatchNode);
 
-	//load the main sprite sheet	
+	//load the main sprite sheet
 	auto cache = SpriteFrameCache::getInstance();
 	cache->addSpriteFramesWithFile("data/mainsheet.plist");
-    
+
     auto animationCache = AnimationCache::getInstance();
     animationCache->addAnimationsWithFile("data/animations.plist");
 
@@ -39,7 +39,7 @@ bool Game::init()
 
 void Game::setupLevel(float)
 {
-	currentLevel = new Level("levels/test.xml");
+	currentLevel = new Level("test.lvl");
 	this->scheduleUpdate();
 }
 

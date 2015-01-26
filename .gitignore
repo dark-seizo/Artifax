@@ -1,3 +1,4 @@
+linux-build
 assets
 cocos2d
-CMakeLists.txt
+build

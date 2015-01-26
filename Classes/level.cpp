@@ -23,15 +23,15 @@ Level::Level( const std::string &filename )
 
 	//calls configure on all systems
 	systems.configure();
-    
+
 	auto player = this->createPlayer();
-    
+
 	this->createPlayerEnergyBar(player);
     this->createPlayerShieldBar(player);
 
 	this->loadLevelFile(filename);
     this->loadEnemyDefinitions();
-    
+
     //preload and play bgm music
     std::string bgmPath("bgm/" + levelData->mainBgm);
     CocosDenshion::SimpleAudioEngine::getInstance()->preloadBackgroundMusic(bgmPath.c_str());
@@ -108,18 +108,18 @@ entityx::Entity Level::createEnemyFromEnemyData(const EnemyData &data, std::stri
 	entity.assign<UpgradeComponent>(data.drop);
 	entity.assign<EnemyComponent>(data.type, speed, data.rotatable);
 	entity.assign<PathComponent>(enemyPathMap.at(path));
-	
+
 	float healthPool = 1.f;
     float attackPower = 1.f;
     float attackSpeed = 1.f;
     float attackFrequency = 1.f;
     float frequencyDeltaMin = 1.f, frequencyDeltaMax = 1.f;
     EnemyWeaponType attackType;
-    
+
     const std::string def = MapSearchByValue<std::map<std::string, EnemyType>, EnemyType>(enemyNameMap, data.type)->first;
-    
+
     auto &enemyDefinition = enemyDefinitions[def.c_str()];
-    
+
     if (enemyDefinition.IsObject())
     {
         healthPool = enemyDefinition["healthPool"].GetDouble();
@@ -135,7 +135,7 @@ entityx::Entity Level::createEnemyFromEnemyData(const EnemyData &data, std::stri
         //ERROR HANDLING
         CCLOG("createEnemyFromData: Unable to find enemy definition");
     }
-    
+
     entity.assign<EnemyWeaponComponent>(attackPower, attackFrequency, frequencyDeltaMin, frequencyDeltaMax, attackSpeed, attackType);
 	entity.assign<EnemyHealthComponent>(healthPool);
 
@@ -150,9 +150,9 @@ void Level::loadEnemyDefinitions()
 {
     auto content = FileUtils::getInstance()->getDataFromFile("data/enemies.json");
     std::string contentString((const char*)content.getBytes(), content.getSize());
-    
+
     enemyDefinitions.Parse<rapidjson::kParseDefaultFlags>(contentString.c_str());
-    
+
     if(enemyDefinitions.HasParseError())
     {
         //throw exception, enemy definitions was unreadable
@@ -207,14 +207,14 @@ Vec2 Level::setInitialPosition(entityx::Entity entity)
 	if (entity.has_component<SpriteComponent>() && entity.has_component<PathComponent>() && entity.has_component<EnemyComponent>())
 	{
         float x_delta = 10.0f;
-        
+
         auto determineRotation = [&x_delta] (entityx::Entity entity)
         {
             if (entity.component<EnemyComponent>()->rotatable) {
                 cocos2d::Sprite *sprite = entity.component<SpriteComponent>()->sprite;
                 float initial_x = sprite->getPositionX();
                 float initial_y = sprite->getPositionY();
-                
+
                 float rotation = 0.f;
                 switch (entity.component<PathComponent>()->path.type)
                 {
@@ -225,7 +225,7 @@ Vec2 Level::setInitialPosition(entityx::Entity entity)
                         rotation = atanf((newY - initial_y) / (newX - initial_x));
                         break;
                     }
-                        
+
                     case PathType::POLAR:
                     {
                         rotation = initial_x;
@@ -249,9 +249,9 @@ Vec2 Level::setInitialPosition(entityx::Entity entity)
 		float initial_y = entity.component<PathComponent>()->path.function(initial_x);
 		sprite->setPosition(Vec2(initial_x, initial_y));
         sprite->setRotation(determineRotation(entity));
-        
+
 		auto pos = sprite->getPosition();
-        
+
         cocos2d::Rect spriteRect = sprite->getBoundingBox();
 
 		float x_multiple = 0.f;
@@ -264,7 +264,7 @@ Vec2 Level::setInitialPosition(entityx::Entity entity)
 			float new_y = entity.component<PathComponent>()->path.function(new_x);
 			sprite->setPosition(Vec2(new_x, new_y));
             sprite->setRotation(determineRotation(entity));
-			
+
             //reset bounding box, may not need to do this.
             spriteRect = sprite->getBoundingBox();
 		}
@@ -285,15 +285,15 @@ std::map<const std::string, float> Level::loadPlayerShipValues()
     rapidjson::Document constants;
     auto content = FileUtils::getInstance()->getDataFromFile("data/player_ship.json");
     std::string contentString((const char*)content.getBytes(), content.getSize());
-    
+
     constants.Parse<rapidjson::kParseDefaultFlags>(contentString.c_str());
-    
+
     if (constants.HasParseError())
     {
         //throw exception, constants.json was unreadable
         CCLOG("error reading constants.json: %s", constants.GetParseError());
     }
-    
+
     std::map<const std::string, float> shipStats;
     shipStats["player_ship_velocity"] = constants["ship"]["velocity"].GetDouble();
     shipStats["player_laser_delay"] = constants["weapon_delay"]["laser"].GetDouble();
@@ -312,7 +312,7 @@ std::map<const std::string, float> Level::loadPlayerShipValues()
     shipStats["player_laser_power"] = constants["weapon_power"]["laser"].GetDouble();
     shipStats["player_missile_power"] = constants["weapon_power"]["missile"].GetDouble();
     shipStats["player_turret_power"] = constants["weapon_power"]["turret"].GetDouble();
-    
+
     return shipStats;
 }
 
@@ -346,7 +346,7 @@ entityx::Entity Level::createPlayer()
 		{ "right", EventKeyboard::KeyCode::KEY_D },
 		{ "fire", EventKeyboard::KeyCode::KEY_SPACE }
 	};
-    
+
 	entity.assign<InputComponent>(keyMap);
 	entity.assign<ShieldComponent>(shipStats.at("player_shield_max_strength"), shipStats["player_shield_recharge_rate"], shipStats["player_shield_recharge_delay"], shipStats["player_shield_depleted_delay"]);
 	entity.assign<EnergyBarComponent>(shipStats["player_energybar_max_strength"], shipStats["player_energybar_recharge_rate"], shipStats["player_energybar_recharge_delay"]);
@@ -354,7 +354,7 @@ entityx::Entity Level::createPlayer()
 	entity.assign<WeaponComponent>(shipStats["player_laser_power"], shipStats["player_laser_delay"], shipStats["player_laser_cost"], shipStats["player_missile_power"], shipStats["player_missile_delay"], shipStats["player_missile_cost"]);
 	entity.assign<VelocityComponent>();
     entity.assign<BoundaryComponent>(cocos2d::Rect(0,0,visibleSize.width,visibleSize.height));
-	
+
 	return entity;
 }
 
@@ -364,7 +364,7 @@ void Level::createPlayerEnergyBar(entityx::Entity player)
 	Size visibleSize = director->getWinSize();
 
 	auto entity = entities.create();
-	
+
 	auto progressBarComponent = entity.assign<ProgressBarComponent>("energybar.png");
 	auto backgroundSprite = progressBarComponent->background;
 	auto progressBar = progressBarComponent->progressBar;
@@ -372,7 +372,7 @@ void Level::createPlayerEnergyBar(entityx::Entity player)
 
 	backgroundSprite->setPosition(Vec2(contentSizeBackground.width / 2 + 10.f, visibleSize.height - contentSizeBackground.height / 2 - 5.0f));
 	backgroundSprite->setZOrder(Z_ORDER::UI_ELEMENT);
-	
+
 	//progressBar->setPosition(Vec2(contentSizeBar.width / 2 + 15.f, ));
 	progressBar->setType(ProgressTimerType::BAR);
 	progressBar->setBarChangeRate(Vec2(1, 0));
@@ -384,28 +384,29 @@ void Level::createPlayerEnergyBar(entityx::Entity player)
 		player.component<EnergyBarComponent>()->displayEntity = entity;
 	}
 	else CCLOG("player did not have energy component, did not set display entity");
+	CCLOG("test");
 }
 
 void Level::createPlayerShieldBar(entityx::Entity player)
 {
     auto director = Director::getInstance();
     Size winSize = director->getWinSize();
-    
+
     auto entity = entities.create();
-    
+
     auto shieldBarComponent = entity.assign<ProgressBarComponent>("shieldbar.png");
     auto backgroundSprite = shieldBarComponent->background;
     auto bar = shieldBarComponent->progressBar;
     auto contentSizeBackground = backgroundSprite->getContentSize();
-    
+
     backgroundSprite->setPosition((contentSizeBackground.width * 1.5f + 20.f),winSize.height - contentSizeBackground.height / 2 - 5.f);
     backgroundSprite->setZOrder(Z_ORDER::UI_ELEMENT);
-    
+
     bar->setType(ProgressTimerType::BAR);
     bar->setBarChangeRate(Vec2(1, 0));
 	bar->setMidpoint(Vec2(0, 0.5f));
 	bar->setPercentage(100.f);
-    
+
     if(player.has_component<ShieldComponent>())
     {
         player.component<ShieldComponent>()->displayEntity = entity;
@@ -415,7 +416,7 @@ void Level::createPlayerShieldBar(entityx::Entity player)
 
 void Level::loadLevelFile(const std::string &filename)
 {
-	std::string filePath = filename;
+	std::string filePath = getFilePath("levels/" + filename);
 	tinyxml2::XMLDocument doc;
 	if (doc.LoadFile(filePath.c_str()) == XML_NO_ERROR)
 	{
@@ -427,7 +428,7 @@ void Level::loadLevelFile(const std::string &filename)
 			{
 				levelData->mainBgm = mainNode->Attribute("bgm");
 			}
-            
+
             std::string bg = "";
             if (mainNode->Attribute("bg"))
             {
@@ -438,9 +439,9 @@ void Level::loadLevelFile(const std::string &filename)
             {
                 fg = mainNode->Attribute("fg");
             }
-            
+
             this->createParallaxBackground(bg, fg);
-            
+
 			mainNode = mainNode->FirstChildElement("wave");
 			if (mainNode)
 			{
@@ -459,7 +460,7 @@ void Level::loadLevelFile(const std::string &filename)
 						{
 							XMLElement *groupNode = waveNode;
 							std::string path = groupNode->Attribute("path");
-							
+
 							float delay = 0.0f;
 							//check if there is a delay
 							groupNode->QueryFloatAttribute("delta", &delay);
@@ -472,7 +473,7 @@ void Level::loadLevelFile(const std::string &filename)
 								upgrade = true;
 								upgradeString = groupNode->Attribute("upgrade");
 							}
-                            
+
                             //UpgradeDrop drop = upgradeMap.find(upgradeString)->second;
                             UpgradeDrop drop = stringToUpgradeDrop(upgradeString.c_str());
 
@@ -483,7 +484,7 @@ void Level::loadLevelFile(const std::string &filename)
 							//find the padding of the group, default value: 5.f
 							float padding = 5.f;
 							groupNode->QueryFloatAttribute("padding", &padding);
-                            
+
                             //find if this group is rotatable
                             bool rotatable = true;
                             groupNode->QueryBoolAttribute("rotatable", &rotatable);
@@ -513,10 +514,10 @@ void Level::loadLevelFile(const std::string &filename)
 									do
 									{
 										EnemyData enemyData;
-                                        
+
                                         //set if the enemy group is rotatable
                                         enemyData.rotatable = rotatable;
-                                        
+
 										//check if we need to look for an upgrade
 										if (!upgrade && enemyNode->Attribute("upgrade"))
 										{
@@ -574,5 +575,10 @@ void Level::loadLevelFile(const std::string &filename)
 				}
 			}
 		}
+	}
+	else
+	{
+		CCLOG("Error loading level file");
+		doc.PrintError();
 	}
 }
